@@ -1,0 +1,77 @@
+import numpy as np
+import cv2
+import tensorflow as tf
+
+IMG_SIZE = 64
+
+modelo = tf.keras.models.load_model(
+    "gatos_e_cachorros.h5"
+)
+
+# abre webcam
+camera = cv2.VideoCapture(0)
+
+contador = 0
+
+while True:
+
+    ret, frame = camera.read()
+
+    contador += 1
+
+    if contador % 10 == 0:
+
+        img = cv2.resize(
+            frame,
+            (IMG_SIZE, IMG_SIZE)
+        )
+
+        img = img.astype(
+            "float32"
+        ) / 255.0
+
+        img = np.expand_dims(
+            img,
+            axis=0
+        )
+
+        pred = modelo.predict(
+            img,
+            verbose=0
+        )[0]
+
+        classe = np.argmax(pred)
+
+        print("\nProbabilidades:")
+        print("Dog:", pred[0])
+        print("Cat:", pred[1])
+
+        pred = np.max(pred)
+
+        if classe == 0:
+            texto = f"CAHORRO ({pred:.2f})"
+
+        else:
+            texto = f"GATO ({pred:.2f})"
+
+        cv2.putText(
+            frame,
+            texto,
+            (20, 40),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            1,
+            (0, 255, 0),
+            2
+        )
+
+        cv2.imshow(
+            "Classificador de Gatos e Cachorros",
+            frame
+        )
+
+        # ESC para sair
+        if cv2.waitKey(1) & 0xFF == 27:
+            break
+
+camera.release()
+cv2.destroyAllWindows()
