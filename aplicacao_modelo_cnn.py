@@ -9,7 +9,7 @@ modelo = tf.keras.models.load_model(
 )
 
 # abre webcam
-camera = cv2.VideoCapture(0)
+camera = cv2.VideoCapture(1)
 
 contador = 0
 
@@ -43,16 +43,16 @@ while True:
         classe = np.argmax(pred)
 
         print("\nProbabilidades:")
-        print("Dog:", pred[0])
-        print("Cat:", pred[1])
+        print("Open hand:", pred[0])
+        print("No open hand:", pred[1])
 
         pred = np.max(pred)
 
         if classe == 0:
-            texto = f"DETECTED ({pred:.2f})"
+            texto = f"OPEN HAND ({pred:.2f})"
 
         else:
-            texto = f"NOT DETECTED ({pred:.2f})"
+            texto = f"NO OPEN HAND ({pred:.2f})"
 
         cv2.putText(
             frame,
