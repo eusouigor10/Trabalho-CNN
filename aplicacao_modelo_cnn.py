@@ -5,7 +5,7 @@ import tensorflow as tf
 IMG_SIZE = 64
 
 modelo = tf.keras.models.load_model(
-    "gatos_e_cachorros.h5"
+    "identify_open_hands.h5"
 )
 
 # abre webcam
@@ -49,10 +49,10 @@ while True:
         pred = np.max(pred)
 
         if classe == 0:
-            texto = f"CAHORRO ({pred:.2f})"
+            texto = f"DETECTED ({pred:.2f})"
 
         else:
-            texto = f"GATO ({pred:.2f})"
+            texto = f"NOT DETECTED ({pred:.2f})"
 
         cv2.putText(
             frame,
@@ -65,7 +65,7 @@ while True:
         )
 
         cv2.imshow(
-            "Classificador de Gatos e Cachorros",
+            "Open hand classification",
             frame
         )
 
