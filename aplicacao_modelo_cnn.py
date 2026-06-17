@@ -5,7 +5,7 @@ import tensorflow as tf
 IMG_SIZE = 64
 
 modelo = tf.keras.models.load_model(
-    "identify_open_hands.h5"
+    "identify_open_hands.keras"
 )
 
 # abre webcam
