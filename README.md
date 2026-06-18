@@ -1,4 +1,4 @@
-# 🚦 Semáforo Inteligente com Visão Computacional (CNN)
+#  Semáforo Inteligente com Visão Computacional (CNN)
 
 Este projeto consiste em um protótipo de **Semáforo Inteligente** acionado por pedestres, desenvolvido como requisito para a disciplina de Inteligência Artificial (Ciência da Computação). 
 
@@ -6,7 +6,7 @@ O sistema utiliza uma **Rede Neural Convolucional (CNN)** treinada no Keras/Tens
 
 ---
 
-## 📂 Estrutura do Repositório
+##  Estrutura do Repositório
 
 O projeto é composto por dois arquivos principais que devem permanecer na mesma pasta:  
 * `aplicacao_modelo_cnn.py`: Script Python responsável pela captura de vídeo da webcam, processamento dos frames e execução da inferência da rede neural.  
@@ -14,7 +14,7 @@ O projeto é composto por dois arquivos principais que devem permanecer na mesma
 
 ---
 
-## 🛠️ Pré-requisitos e Ambiente
+##  Pré-requisitos e Ambiente
 
 Para garantir a compatibilidade das versões das bibliotecas (especialmente do TensorFlow), o projeto utiliza um ambiente virtual gerenciado pelo **Anaconda / Miniconda**.
 
@@ -25,7 +25,7 @@ Para garantir a compatibilidade das versões das bibliotecas (especialmente do T
 
 ---
 
-## 🚀 Passo a Passo para Execução
+##  Passo a Passo para Execução
 
 Siga as instruções abaixo no terminal do seu VS Code para configurar o ambiente e rodar o projeto:
 
