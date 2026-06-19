@@ -21,7 +21,7 @@ modelo = tf.keras.models.load_model(
 )
 
 # abre webcam
-camera = cv2.VideoCapture(0) # 0 para câmera do note e 1 para webcam
+camera = cv2.VideoCapture(1) # 0 para câmera do note e 1 para webcam
 
 contador = 0
 ultimo_envio = 0
@@ -63,7 +63,7 @@ while True:
         pred = np.max(pred)
 
         if classe == 0:
-            texto = f"OPEN HAND ({pred:.2f})"
+            texto = f"MAO ABERTA ({pred:.2f})"
             # 1. ENVIA O COMANDO PARA O ARDUINO SE ESTIVER CONECTADO
             if arduino and (tempo_atual - ultimo_envio > 4):
                 arduino.write(b'P')
@@ -71,7 +71,7 @@ while True:
                 ultimo_envio = tempo_atual
 
         else:
-            texto = f"NO OPEN HAND ({pred:.2f})"
+            texto = f"MAO FECHADA ({pred:.2f})"
 
         cv2.putText(
             frame,
@@ -79,7 +79,7 @@ while True:
             (20, 40),
             cv2.FONT_HERSHEY_SIMPLEX,
             1,
-            (0, 255, 0),
+            (0, 0, 0),
             2
         )
 
