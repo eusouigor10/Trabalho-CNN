@@ -21,7 +21,7 @@ modelo = tf.keras.models.load_model(
 )
 
 # abre webcam
-camera = cv2.VideoCapture(1) # 0 para câmera do note e 1 para webcam
+camera = cv2.VideoCapture(0) # 0 para câmera do note e 1 para webcam
 
 contador = 0
 ultimo_envio = 0
