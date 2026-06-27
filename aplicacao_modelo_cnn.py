@@ -32,7 +32,7 @@ while True:
 
     contador += 1
     tempo_atual = time.time()
-
+ 
     if contador % 5 == 0:
 
         img = cv2.resize(
