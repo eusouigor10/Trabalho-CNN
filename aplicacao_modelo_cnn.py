@@ -4,11 +4,9 @@ import tensorflow as tf
 import serial
 import time
 
-# --- CONFIGURAÇÃO DA PORTA SERIAL DO ARDUINO ---
-# IMPORTANTE: Mude 'COM3' para a porta real que aparecer na sua IDE do Arduino
 try:
     arduino = serial.Serial('COM6', 9600, timeout=1)
-    time.sleep(2) # Tempo para o Arduino resetar ao conectar
+    time.sleep(2) # tempo para o Arduino resetar ao conectar
     print("Conexão com o Arduino estabelecida com sucesso!")
 except (serial.SerialException, IndexError, Exception) as e:
     print("Não foi possível conectar ao Arduino. O script rodará apenas no modo simulação de vídeo.")
@@ -16,12 +14,12 @@ except (serial.SerialException, IndexError, Exception) as e:
 
 IMG_SIZE = 64
 
-modelo = tf.keras.models.load_model(
+modelo = tf.keras.models.load_model( # abre o modelo treinado
     "identify_open_hands.keras"
 )
 
 # abre webcam
-camera = cv2.VideoCapture(1) # 0 para câmera do note e 1 para webcam
+camera = cv2.VideoCapture(0) # 0 para câmera do note e 1 para webcam
 
 contador = 0
 ultimo_envio = 0
@@ -64,8 +62,8 @@ while True:
 
         if classe == 0:
             texto = f"MAO ABERTA ({pred:.2f})"
-            # 1. ENVIA O COMANDO PARA O ARDUINO SE ESTIVER CONECTADO
-            if arduino and (tempo_atual - ultimo_envio > 4):
+            # envia o comando para o Arduino
+            if arduino and (tempo_atual - ultimo_envio > 4): # ajuda a não inundar o buffer
                 arduino.write(b'P')
                 arduino.flush()
                 ultimo_envio = tempo_atual

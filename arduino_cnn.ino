@@ -1,14 +1,14 @@
 #include <Servo.h>
 Servo servoMotor;
 
-// Configuração de Pinos
+// configuração de Pinos
 const int pinoVermelho = 2; 
 const int pinoAmarelo = 3;
 const int pinoVerde = 4;
 const int pinoServo = 5;
 const int pinoPot = A0;
 
-// Variáveis de Controle
+// variáveis de Controle
 int potencia;
 int pausa;
 int pausaDividida;
@@ -16,7 +16,7 @@ unsigned long tempoAnterior = 0;
 int estado = 0; 
 
 void setup() {
-  Serial.begin(9600); // Comunicação com o Python
+  Serial.begin(9600); // comunicação com o Python
   servoMotor.attach(pinoServo);
   servoMotor.write(0);
 
@@ -28,7 +28,7 @@ void setup() {
 void loop() {
   unsigned long agora = millis();
   
-  // 1. Leitura do Potenciômetro e cálculo do tempo padrão
+  // leitura do potenciômetro e cálculo do tempo padrão
   potencia = 749;
   
   if(potencia < 150) pausa = 1000;
@@ -41,20 +41,20 @@ void loop() {
 
   pausaDividida = pausa / 3;
    
-  // --- LÓGICA DO PEDESTRE VIA SERIAL (PYTHON) ---
+  // lógica da porta serial
   if (Serial.available() > 0) {
     char caractereRecebido = Serial.read();
     
-    // Se receber 'P' do Python, estiver no VERDE (1)
+    // se receber 'P' do Python, estiver no verde
     if (caractereRecebido == 'P' && estado == 1) {
-      estado = 2;          // Pula para o AMARELO por segurança
-      tempoAnterior = agora; // Reseta o tempo para o amarelo durar o tempo exato
+      estado = 2;          // pula para o amarelo por segurança
+      tempoAnterior = agora; // reseta o tempo para o amarelo durar o tempo exato
     }
   }
 
-  // --- Máquina de Estados (Semaforo) ---
+  // máquina de estados
   switch(estado) {
-    case 0: // VERMELHO (Carros parados, Pedestre passa)
+    case 0: // VERMELHO
       digitalWrite(pinoVermelho, HIGH);
       digitalWrite(pinoAmarelo, LOW);
       digitalWrite(pinoVerde, LOW);
@@ -62,11 +62,11 @@ void loop() {
 
       if (agora - tempoAnterior >= pausa) {
         tempoAnterior = agora;
-        estado = 1; // Vai abrir para os carros
+        estado = 1; // vai abrir
       }
       break;
 
-    case 1: // VERDE (Carros passando)
+    case 1: // VERDE
       digitalWrite(pinoVermelho, LOW);
       digitalWrite(pinoAmarelo, LOW);
       digitalWrite(pinoVerde, HIGH);
@@ -74,11 +74,11 @@ void loop() {
 
       if (agora - tempoAnterior >= pausa) {
         tempoAnterior = agora;
-        estado = 2; // Vai começar a fechar por tempo
+        estado = 2; // vai começar a fechar
       }
       break;
 
-    case 2: // AMARELO (Atenção, vai fechar)
+    case 2: // AMARELO
       digitalWrite(pinoVermelho, LOW);
       digitalWrite(pinoAmarelo, HIGH);
       digitalWrite(pinoVerde, LOW);
@@ -86,7 +86,7 @@ void loop() {
 
       if (agora - tempoAnterior >= pausaDividida) {
         tempoAnterior = agora;
-        estado = 0; // Fechou (Vermelho)
+        estado = 0; // fechou
       }
       break;
   }
