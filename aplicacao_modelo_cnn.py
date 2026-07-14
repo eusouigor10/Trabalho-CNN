@@ -5,7 +5,7 @@ import serial
 import time
 
 try:
-    arduino = serial.Serial('COM6', 9600, timeout=1)
+    arduino = serial.Serial('COM8', 9600, timeout=1)
     time.sleep(2) # tempo para o Arduino resetar ao conectar
     print("Conexão com o Arduino estabelecida com sucesso!")
 except (serial.SerialException, IndexError, Exception) as e:
