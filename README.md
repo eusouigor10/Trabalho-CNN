@@ -55,3 +55,7 @@ Esses comandos referem a instalação do: TensorFlow (v2.20.0), OpenCV para proc
 ### 5. Executar a Aplicação  
 Navegue até a pasta onde os arquivos do projeto estão salvos. Garanta que o script .py e o arquivo .keras estão juntos na mesma pasta e execute:  
 `python aplicacao_modelo_cnn.py`
+
+## 6. Fontes dos datasets utilizados
+Por Laurence Moroney: https://www.kaggle.com/datasets/sanikamal/rock-paper-scissors-dataset
+Desconhecido: https://www.kaggle.com/datasets/bigkizd/hands-dataset
